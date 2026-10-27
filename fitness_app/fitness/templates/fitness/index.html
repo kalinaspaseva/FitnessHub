@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FitnessHUB // Management Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f1115;
+            --card-bg: #161920;
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --border: #2d3748;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(rgba(15, 17, 21, 0.9), rgba(15, 17, 21, 0.9)), url('/media/woman-kickboxing-darkness-studio.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+           }
+
+        .container {
+            width: 100%;
+            max-width: 1000px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 20px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--text-main);
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .admin-link {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border: 1px solid var(--border);
+            background-color: var(--card-bg);
+            padding: 8px 16px;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .admin-link:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            text-align: center;
+        }
+
+        .stat-card h4 {
+            margin: 0 0 6px 0;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        .stat-card .number {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* 3 karticki vo redica za trenerite */
+        .trainer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .trainer-grid, .stats-bar {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .trainer-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px 16px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .trainer-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+        }
+
+        .trainer-avatar {
+            width: 75px;
+            height: 75px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--border);
+            margin-bottom: 12px;
+        }
+
+        .trainer-card h3 {
+            margin: 0 0 4px 0;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .trainer-card p {
+            margin: 0 0 16px 0;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .btn-edit {
+            display: block;
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 7px 0;
+            font-size: 12px;
+            font-weight: 500;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-edit:hover {
+            background-color: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
+        /* Grid za Klienti i Sesii */
+        .grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 14px 18px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-info h3 {
+            margin: 0 0 2px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+        }
+
+        .card-info p {
+            margin: 0;
+            font-size: 12px;
+            color: white;
+        }
+
+        .empty-state {
+            color: var(--text-muted);
+            font-size: 13px;
+            background-color: var(--card-bg);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px dashed var(--border);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <div class="logo">Fitness<span>HUB</span></div>
+            <a href="/admin/" class="admin-link">⚙️ Open Admin Panel</a>
+        </header>
+
+        <div class="stats-bar">
+            <div class="stat-card">
+                <h4>Total Trainers</h4>
+                <div class="number">{{ trainers|length }}</div>
+            </div>
+            <div class="stat-card">
+                <h4>Registered Clients</h4>
+                <div class="number">{{ clients|length }}</div>
+            </div>
+            <div class="stat-card">
+                <h4>Scheduled Sessions</h4>
+                <div class="number">{{ sessions|length }}</div>
+            </div>
+        </div>
+
+        <section>
+            <h2>Trainers Team</h2>
+            <div class="trainer-grid">
+                {% for trainer in trainers %}
+                    <div class="trainer-card">
+                        {% if trainer.profile_image %}
+                            <img src="{{ trainer.profile_image.url }}" alt="Trainer" class="trainer-avatar">
+                        {% else %}
+                            <img src="https://via.placeholder.com/75" alt="Default" class="trainer-avatar">
+                        {% endif %}
+
+                        <h3>
+                            <a href="{% url 'trainer_detail' trainer.id %}" style="color: inherit; text-decoration: none;">{{ trainer.first_name }} {{ trainer.last_name }}</a>
+                        </h3>
+                        <p>{{ trainer.get_specialization_display }}</p>
+
+                        <a href="{% url 'edit_trainer' trainer.id %}" class="btn-edit">Edit Profile</a>
+                    </div>
+                {% empty %}
+                    <div class="empty-state" style="grid-column: span 3;">
+                        No trainers added yet. Go to the <a href="/admin/" style="color: var(--accent);">Admin Panel</a> to add trainers.
+                    </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section>
+            <h2>Clients Directory
+                <a href="{% url 'add_client' %}" style="font-size: 12px; background: var(--accent); color: white; padding: 6px 12px; border-radius: 6px; text-decoration: none;">+ Add Client</a>
+            </h2>
+            <div class="grid">
+                {% for client in clients %}
+                    <div class="card">
+                        <div class="card-info">
+                            <h3>{{ client.first_name }} {{ client.last_name }}</h3>
+                            <p>{{ client.email }}</p>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="empty-state">No clients registered yet. Add them via Admin Panel.</div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section>
+            <h2>
+                Upcoming Training Sessions
+                <a href="{% url 'add_session' %}" style="font-size: 12px; background: var(--accent); color: white; padding: 6px 12px; border-radius: 6px; text-decoration: none;">+ Book Session</a>
+            </h2>
+            <div class="grid">
+                {% for session in sessions %}
+                    <div class="card">
+                        <div class="card-info">
+                            <h3>{{ session.client }} &rarr; {{ session.trainer }}</h3>
+                            <p>{{ session.session_date }}</p>
+                        </div>
+                        <a href="{% url 'cancel_session' session.id %}" style="color: #ef4444; font-size: 13px; text-decoration: none; font-weight: 500;">Cancel</a>
+                    </div>
+                {% empty %}
+                    <div class="empty-state">No scheduled sessions at the moment.</div>
+                {% endfor %}
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
